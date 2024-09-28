@@ -1,13 +1,13 @@
 import streamlit as st
 import time
-from ai21 import AI21Client
-from ai21.models.chat import UserMessage
+# from ai21 import AI21Client
+# from ai21.models.chat import UserMessage
 import os
 import json
 from elasticsearch import Elasticsearch
 from openai import OpenAI
 
-AI21_API_KEY = os.environ["AI21_API_KEY"]
+# AI21_API_KEY = os.environ["AI21_API_KEY"]
 
 client  = OpenAI(
     base_url='http://localhost:11434/v1/',
@@ -32,20 +32,22 @@ CONTEXT: {context}
     return prompt 
 
 # rag: generation 
-def single_message_instruct(content):
-    messages = [UserMessage(content=content)]
-    j_client = AI21Client(api_key=AI21_API_KEY)
-    response = j_client.chat.completions.create(
-        model="jamba-1.5-large",
-        messages=messages,
-        top_p=1.0 # Setting to 1 encourages different responses each call.
-    )
-    return response.to_json()
+# def single_message_instruct(content):
+#     messages = [UserMessage(content=content)]
+#     # j_client = AI21Client(api_key=AI21_API_KEY)
+#     response = client.chat.completions.create(
+#         model="jamba-1.5-large",
+#         messages=messages,
+#         top_p=1.0 # Setting to 1 encourages different responses each call.
+#     )
+#     return response.to_json()
 def llm(prompt):
-    response = single_message_instruct(prompt)
-    json_response = json.loads(response)
-    content = json_response["choices"][0]["message"]["content"]
-    return content
+    response = client.chat.completions.create(
+        model='llama3.2',
+        messages=[{"role": "user", "content": prompt}]
+    )
+    
+    return response.choices[0].message.content
 
 def elastic_search(query,index_name= "course-questions"):
     search_query= {
