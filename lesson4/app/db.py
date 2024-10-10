@@ -93,6 +93,7 @@ def save_conversation(conversation_id, question, answer_data, course, timestamp=
         conn.commit()
     finally:
         conn.close()
+        print("connection closed save_conversation")
 
 
 def save_feedback(conversation_id, feedback, timestamp=None):

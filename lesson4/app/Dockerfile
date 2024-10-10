@@ -8,6 +8,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install ai21
 
+ENV PYTHONUNBUFFERED=1
+
 COPY . .
 
 CMD ["streamlit", "run", "app.py"]

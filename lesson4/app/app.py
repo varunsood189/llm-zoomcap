@@ -51,6 +51,8 @@ def main():
     user_input = st.text_input("Enter your question:")
 
     if st.button("Ask"):
+        st.session_state.conversation_id = str(uuid.uuid4())
+
         print_log(f"User asked: '{user_input}'")
         with st.spinner("Processing..."):
             print_log(
@@ -78,10 +80,10 @@ def main():
             )
             print_log("Conversation saved successfully")
             # Generate a new conversation ID for next question
-            st.session_state.conversation_id = str(uuid.uuid4())
 
     # Feedback buttons
     col1, col2 = st.columns(2)
+    print_log(" Feedback buttons started")
     with col1:
         if st.button("+1"):
             st.session_state.count += 1
