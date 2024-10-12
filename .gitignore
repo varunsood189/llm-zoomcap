@@ -5,7 +5,6 @@ __pycache__/
 
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/
@@ -162,3 +161,5 @@ cython_debug/
 #.idea/
 
 /lesson2/ollama_files
+
+/rag-project/
